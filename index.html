@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>البيت السوري</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gd:#1B4332;--gm:#2D6A4F;--gl:#52B788;
+  --gold:#C8922A;--golL:#E8B95A;--pom:#8B2635;
+  --cream:#FFF8F0;--cdk:#F2EAD8;--txt:#1A1A1A;--mut:#6B6B6B;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--txt)}
+
+/* PATTERN */
+.pat{width:100%;height:22px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='22'%3E%3Cpath d='M0 11 L10 0 L20 11 L30 0 L40 11 L30 22 L20 11 L10 22 Z' fill='none' stroke='%23C8922A' stroke-width='1' opacity='0.35'/%3E%3C/svg%3E");
+  background-repeat:repeat-x}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--gd) 0%,var(--gm) 60%,var(--gd) 100%);
+  position:sticky;top:0;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.hdr-in{max-width:1200px;margin:0 auto;padding:12px 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo{width:50px;height:50px;border-radius:50%;object-fit:cover;
+  border:3px solid var(--gold);flex-shrink:0;background:var(--cdk)}
+.brand h1{font-size:1.55rem;font-weight:900;color:#fff;line-height:1.1}
+.brand .sub{font-size:.73rem;color:var(--gl)}
+
+/* LANG TOGGLE */
+.lang-tgl{display:flex;background:rgba(255,255,255,.14);border-radius:50px;padding:3px;gap:2px}
+.lbtn{background:transparent;border:none;color:rgba(255,255,255,.6);
+  font-family:'Tajawal',sans-serif;font-size:.78rem;font-weight:700;
+  padding:5px 12px;border-radius:50px;cursor:pointer;transition:all .2s}
+.lbtn.on{background:var(--gold);color:#fff}
+
+.hdr-r{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+
+.btn-wa{display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;
+  text-decoration:none;font-family:'Tajawal',sans-serif;font-size:.86rem;font-weight:700;
+  padding:8px 16px;border-radius:50px;transition:all .2s;white-space:nowrap}
+.btn-wa:hover{background:#1ebe5a;transform:translateY(-2px)}
+.btn-map{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#fff;
+  text-decoration:none;font-family:'Tajawal',sans-serif;font-size:.86rem;font-weight:700;
+  padding:8px 16px;border-radius:50px;transition:all .2s;white-space:nowrap}
+.btn-map:hover{background:#a87320;transform:translateY(-2px)}
+
+/* HERO */
+.hero{position:relative;height:430px;overflow:hidden}
+.hero-img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-ov{position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(27,67,50,.52) 0%,rgba(0,0,0,.67) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:20px}
+.h-orn{color:var(--golL);font-size:1.7rem;letter-spacing:10px;margin-bottom:8px}
+.h-title{font-size:3.4rem;font-weight:900;color:#fff;text-shadow:2px 4px 16px rgba(0,0,0,.6);margin-bottom:10px}
+.h-sub{font-size:1.08rem;color:#f0e5c8;max-width:480px}
+.h-badge{margin-top:20px;display:inline-flex;align-items:center;gap:8px;
+  background:rgba(200,146,42,.9);color:#fff;font-size:.88rem;font-weight:700;
+  padding:9px 24px;border-radius:50px}
+
+/* CATEGORY BAR */
+.cat-wrap{background:var(--cdk);border-bottom:1px solid #ddd6c8}
+.cat-bar{display:flex;gap:9px;overflow-x:auto;padding:14px 22px;
+  max-width:1200px;margin:0 auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cat-bar::-webkit-scrollbar{display:none}
+.cbt{display:inline-flex;align-items:center;gap:5px;background:#fff;
+  border:2px solid #ddd;color:var(--mut);font-family:'Tajawal',sans-serif;
+  font-size:.82rem;font-weight:700;padding:7px 14px;border-radius:50px;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .2s}
+.cbt:hover{border-color:var(--gm);color:var(--gm)}
+.cbt.on{background:var(--gd);border-color:var(--gd);color:#fff}
+
+/* PRODUCTS SECTION */
+.prod-sec{max-width:1200px;margin:48px auto;padding:0 22px}
+.sec-hdr{text-align:center;margin-bottom:34px}
+.sec-eye{font-size:.78rem;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.sec-ttl{font-size:2rem;font-weight:900;color:var(--gd)}
+.sec-rule{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px}
+.sec-rule::before,.sec-rule::after{content:'';width:55px;height:2px;background:linear-gradient(to right,transparent,var(--gold));border-radius:1px}
+.sec-rule::after{background:linear-gradient(to left,transparent,var(--gold))}
+.sec-dot{width:7px;height:7px;background:var(--gold);border-radius:50%}
+
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.pcard{background:#fff;border-radius:18px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid rgba(200,146,42,.1);
+  transition:transform .28s,box-shadow .28s}
+.pcard:hover{transform:translateY(-7px);box-shadow:0 14px 38px rgba(27,67,50,.15)}
+.pimgw{position:relative;height:185px;overflow:hidden}
+.pimgw img{width:100%;height:100%;object-fit:cover;transition:transform .35s;display:block}
+.pcard:hover .pimgw img{transform:scale(1.06)}
+/* badge (custom text) top corner */
+.pbadge{position:absolute;top:9px;right:9px;
+  background:var(--pom);color:#fff;font-size:.68rem;font-weight:700;
+  padding:3px 9px;border-radius:20px;z-index:2}
+/* category chip bottom */
+.pcat-chip{position:absolute;bottom:7px;left:7px;
+  background:rgba(27,67,50,.84);color:#fff;font-size:.65rem;font-weight:700;
+  padding:2px 9px;border-radius:20px;backdrop-filter:blur(4px);z-index:2}
+.pbody{padding:15px 16px 18px}
+.pname{font-size:.98rem;font-weight:700;color:var(--txt);margin-bottom:7px;line-height:1.4}
+.pprice{font-size:1.18rem;font-weight:900;color:var(--gd)}
+.punit{font-size:.78rem;color:var(--mut);font-weight:500;margin-top:1px}
+.p-ord-btn{display:block;width:100%;margin-top:12px;padding:10px 0;
+  background:linear-gradient(135deg,var(--gd),var(--gm));color:#fff;border:none;
+  border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.9rem;font-weight:700;
+  cursor:pointer;transition:transform .2s,box-shadow .2s}
+.p-ord-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(27,67,50,.38)}
+.no-res{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--mut);font-size:1.05rem}
+
+/* FOOTER */
+.footer{background:var(--gd);color:#fff;padding:46px 22px 26px;margin-top:68px;text-align:center}
+.footer h2{font-size:1.85rem;font-weight:900;margin-bottom:6px}
+.f-sub{color:var(--gl);font-size:.88rem;margin-bottom:24px}
+.f-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.flink{display:inline-flex;align-items:center;gap:7px;color:var(--cdk);text-decoration:none;
+  font-size:.88rem;font-weight:600;padding:8px 16px;border:1px solid rgba(255,255,255,.2);
+  border-radius:50px;transition:all .2s}
+.flink:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+.f-copy{font-size:.74rem;color:rgba(255,255,255,.3)}
+
+/* FLOAT WA */
+.wa-float{position:fixed;bottom:25px;left:25px;width:54px;height:54px;
+  background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;text-decoration:none;z-index:1000;transition:transform .2s;
+  animation:wap 2.5s infinite}
+@keyframes wap{
+  0%{box-shadow:0 0 0 0 rgba(37,211,102,.7)}
+  70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}
+  100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+.wa-float:hover{transform:scale(1.12)}
+
+/* ADMIN GEAR */
+.agear{position:fixed;bottom:25px;right:25px;width:40px;height:40px;
+  background:rgba(50,50,50,.6);color:#fff;border:none;border-radius:50%;
+  font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  z-index:1000;opacity:.3;transition:opacity .25s,background .25s}
+.agear:hover{opacity:1;background:var(--gd)}
+
+/* TOAST */
+.toast{position:fixed;bottom:94px;left:50%;transform:translateX(-50%) translateY(40px);
+  background:var(--gd);color:#fff;padding:10px 24px;border-radius:50px;font-size:.9rem;
+  font-weight:700;z-index:99999;opacity:0;transition:opacity .3s,transform .3s;
+  pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ADMIN OVERLAY */
+.aov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);
+  z-index:9999;overflow-y:auto;padding:24px 12px}
+.abox{background:#fff;max-width:880px;margin:0 auto;border-radius:20px;overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.45)}
+.ahdr{background:linear-gradient(135deg,var(--gd),var(--gm));color:#fff;
+  padding:19px 24px;display:flex;align-items:center;justify-content:space-between}
+.ahdr h2{font-size:1.15rem;font-weight:800}
+.acls{background:rgba(255,255,255,.2);border:none;color:#fff;width:32px;height:32px;
+  border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.acls:hover{background:rgba(255,255,255,.35)}
+.abody{padding:24px}
+
+/* LOGIN */
+.lgn-w{padding:38px 24px;text-align:center}
+.lgn-w h3{font-size:1.3rem;font-weight:800;color:var(--gd);margin-bottom:6px}
+.lgn-w p{color:var(--mut);font-size:.85rem;margin-bottom:20px}
+.lgn-inp{display:block;width:100%;max-width:260px;margin:0 auto 13px;
+  padding:10px 16px;border:2px solid #e0e0e0;border-radius:11px;
+  font-family:'Tajawal',sans-serif;font-size:1rem;text-align:center;direction:ltr}
+.lgn-inp:focus{outline:none;border-color:var(--gm)}
+.err-m{display:none;color:#c0392b;font-size:.84rem;margin-top:8px}
+
+/* ADMIN SECTIONS */
+.asec{border-bottom:1px solid #ebe8e0;padding-bottom:24px;margin-bottom:24px}
+.asec:last-child{border-bottom:none;margin-bottom:0}
+.asec-t{font-size:.98rem;font-weight:800;color:var(--gd);margin-bottom:14px;
+  display:flex;align-items:center;gap:7px}
+.frow{display:grid;gap:11px;margin-bottom:11px}
+.fr2{grid-template-columns:1fr 1fr}
+.fr3{grid-template-columns:1fr 1fr 1fr}
+.fld label{display:block;font-size:.76rem;font-weight:700;color:var(--mut);margin-bottom:4px}
+.fld input,.fld select{width:100%;padding:8px 11px;border:2px solid #e0dbd0;border-radius:9px;
+  font-family:'Tajawal',sans-serif;font-size:.88rem;direction:rtl;background:#fff;transition:border-color .2s}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--gm)}
+.fld input.ltr{direction:ltr;text-align:left}
+
+/* ADMIN BTNS */
+.btn-pri{display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,var(--gd),var(--gm));color:#fff;border:none;
+  padding:9px 22px;border-radius:10px;font-family:'Tajawal',sans-serif;
+  font-size:.9rem;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-pri:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(27,67,50,.38)}
+.btn-gld{background:var(--gold);color:#fff;border:none;padding:8px 16px;border-radius:9px;
+  font-family:'Tajawal',sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;transition:background .2s}
+.btn-gld:hover{background:#a87320}
+.btn-del{background:#e74c3c;color:#fff;border:none;width:31px;height:31px;border-radius:7px;
+  cursor:pointer;font-size:.82rem;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background .2s}
+.btn-del:hover{background:#c0392b}
+
+/* PRODUCT EDIT CARD */
+.pecard{padding:13px;background:#f8f5f0;border-radius:12px;margin-bottom:11px;
+  border:1px solid #e8e0d0}
+.pe-top{display:flex;align-items:flex-start;gap:10px}
+.pe-thumb{width:58px;height:58px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--cdk)}
+.pe-fields{flex:1;display:flex;flex-direction:column;gap:8px}
+.pe-row{display:grid;gap:7px}
+.pe-r2{grid-template-columns:1fr 1fr}
+.pe-r3{grid-template-columns:1fr 1fr 1fr}
+.pe-r4{grid-template-columns:70px 1fr 1fr 1fr}
+.pei,.pes{padding:6px 10px;border:2px solid #e0dbd0;border-radius:8px;
+  font-family:'Tajawal',sans-serif;font-size:.82rem;direction:rtl;background:#fff;width:100%}
+.pei:focus,.pes:focus{outline:none;border-color:var(--gm)}
+.pei.ltr{direction:ltr;text-align:left}
+.pe-label{font-size:.68rem;color:var(--mut);font-weight:700;margin-bottom:2px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hdr-in{flex-direction:column;gap:10px}
+  .h-title{font-size:2.2rem}
+  .hero{height:340px}
+  .pgrid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:13px}
+  .fr2,.fr3{grid-template-columns:1fr}
+  .pe-r3{grid-template-columns:1fr 1fr}
+  .pe-r4{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .pgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .pbody{padding:11px 12px 14px}
+  .pname{font-size:.86rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+<div class="hdr-in">
+  <div class="brand">
+    <img class="brand-logo" id="logoImg" src="https://images.unsplash.com/photo-1604742763104-86a359b22e4e?w=200&q=80" alt="">
+    <div>
+      <h1 id="hName">البيت السوري</h1>
+      <span class="sub" data-ar="سوبرماركت عربي متخصص • العين" data-en="Arabic Supermarket • Al Ain">سوبرماركت عربي متخصص • العين</span>
+    </div>
+  </div>
+  <div class="hdr-r">
+    <!-- Language toggle -->
+    <div class="lang-tgl">
+      <button class="lbtn on" id="btnAr" onclick="setLang('ar')">🇸🇦 عربي</button>
+      <button class="lbtn"    id="btnEn" onclick="setLang('en')">🇬🇧 EN</button>
+    </div>
+    <a class="btn-wa" id="waHdr" href="#" target="_blank">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span data-ar="واتساب" data-en="WhatsApp">واتساب</span>
+    </a>
+    <a class="btn-map" id="mapBtn"
+       href="https://www.google.com/maps/place/%D8%B3%D9%88%D8%A8%D8%B1%D9%85%D8%A7%D8%B1%D9%83%D8%AA+%D8%A7%D9%84%D8%A8%D9%8A%D8%AA+%D8%A7%D9%84%D8%B3%D9%88%D8%B1%D9%8A%E2%80%AD/@24.2255422,55.7695839,20z/data=!4m14!1m7!3m6!1s0x3e8ab145cbd5a049:0x3412343f10210fc4!2s6QG9%2B8V+-+Abu+Dhabi!3b1!8m2!3d24.2258125!4d55.7696875!3m5!1s0x3e8ab753f7440811:0xc167f44a771a37e3!8m2!3d24.2258349!4d55.7696881!16s%2Fg%2F11n00qwpwz?entry=ttu&g_ep=EgoyMDI2MDYyMy4wIKXMDSoASAFQAw%3D%3D"
+       target="_blank">
+      <span data-ar="📍 موقعنا" data-en="📍 Location">📍 موقعنا</span>
+    </a>
+  </div>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img" id="heroImg" src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=85" alt="">
+  <div class="hero-ov">
+    <div class="h-orn">✦ ✦ ✦</div>
+    <h2 class="h-title" id="hNameHero">البيت السوري</h2>
+    <p class="h-sub"
+       data-ar="أجود المنتجات العربية والسورية الأصيلة في قلب العين"
+       data-en="Finest authentic Arabic &amp; Syrian products in the heart of Al Ain">أجود المنتجات العربية والسورية الأصيلة في قلب العين</p>
+    <div class="h-badge">
+      <span data-ar="🌿 طازج يومياً · أسعار مميزة · توصيل سريع"
+            data-en="🌿 Fresh Daily · Best Prices · Fast Delivery">🌿 طازج يومياً · أسعار مميزة · توصيل سريع</span>
+    </div>
+  </div>
+</section>
+
+<div class="pat"></div>
+
+<!-- CATEGORY BAR -->
+<div class="cat-wrap">
+  <div class="cat-bar" id="catBar"></div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="prod-sec">
+  <div class="sec-hdr">
+    <p class="sec-eye" data-ar="تشكيلتنا الكاملة" data-en="OUR FULL RANGE">تشكيلتنا الكاملة</p>
+    <h2 class="sec-ttl" data-ar="منتجاتنا المميزة" data-en="Featured Products">منتجاتنا المميزة</h2>
+    <div class="sec-rule"><div class="sec-dot"></div></div>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+</section>
+
+<div class="pat"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h2 id="fName">البيت السوري</h2>
+  <p class="f-sub"
+     data-ar="وجهتك الأولى للمنتجات العربية الأصيلة في العين"
+     data-en="Your first destination for authentic Arabic products in Al Ain">وجهتك الأولى للمنتجات العربية الأصيلة في العين</p>
+  <div class="f-links">
+    <a class="flink" id="waFtr" href="#" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span id="fPhone">0567163671</span>
+    </a>
+    <a class="flink"
+       href="https://www.google.com/maps/place/%D8%B3%D9%88%D8%A8%D8%B1%D9%85%D8%A7%D8%B1%D9%83%D8%AA+%D8%A7%D9%84%D8%A8%D9%8A%D8%AA+%D8%A7%D9%84%D8%B3%D9%88%D8%B1%D9%8A%E2%80%AD/@24.2255422,55.7695839,20z/data=!4m14!1m7!3m6!1s0x3e8ab145cbd5a049:0x3412343f10210fc4!2s6QG9%2B8V+-+Abu+Dhabi!3b1!8m2!3d24.2258125!4d55.7696875!3m5!1s0x3e8ab753f7440811:0xc167f44a771a37e3!8m2!3d24.2258349!4d55.7696881!16s%2Fg%2F11n00qwpwz?entry=ttu&g_ep=EgoyMDI2MDYyMy4wIKXMDSoASAFQAw%3D%3D"
+       target="_blank">
+      <span data-ar="📍 الموقع على الخريطة" data-en="📍 View on Google Maps">📍 الموقع على الخريطة</span>
+    </a>
+  </div>
+  <p class="f-copy"
+     data-ar="© 2025 البيت السوري • جميع الحقوق محفوظة"
+     data-en="© 2025 Al-Bayt Al-Souri • All Rights Reserved">© 2025 البيت السوري • جميع الحقوق محفوظة</p>
+</footer>
+
+<!-- FLOATING WA -->
+<a class="wa-float" id="waFloat" href="#" target="_blank" title="WhatsApp">
+  <svg width="27" height="27" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+<button class="agear" onclick="openAdmin()">⚙</button>
+<div class="toast" id="toast"></div>
+
+<!-- ADMIN OVERLAY -->
+<div class="aov" id="aov">
+  <div class="abox">
+
+    <!-- LOGIN -->
+    <div id="aLogin">
+      <div class="ahdr">
+        <h2>🔐 لوحة تحكم المتجر</h2>
+        <button class="acls" onclick="closeAdmin()">✕</button>
+      </div>
+      <div class="lgn-w">
+        <h3>أدخل كلمة المرور</h3>
+        <p>خاص بصاحب المتجر فقط</p>
+        <input class="lgn-inp" type="password" id="pwInp" placeholder="••••••••"
+               onkeydown="if(event.key==='Enter')checkPw()">
+        <button class="btn-pri" onclick="checkPw()">🔑 دخول</button>
+        <p class="err-m" id="pwErr">❌ كلمة المرور غير صحيحة</p>
+      </div>
+    </div>
+
+    <!-- PANEL -->
+    <div id="aPanel" style="display:none">
+      <div class="ahdr">
+        <h2>⚙ لوحة التحكم — البيت السوري</h2>
+        <button class="acls" onclick="closeAdmin()">✕</button>
+      </div>
+      <div class="abody">
+
+        <!-- STORE SETTINGS -->
+        <div class="asec">
+          <h3 class="asec-t">🏪 إعدادات المتجر</h3>
+          <div class="frow fr2">
+            <div class="fld"><label>اسم المتجر</label><input type="text" id="aNm" placeholder="البيت السوري"></div>
+            <div class="fld"><label>رقم الواتساب</label><input type="text" id="aPh" class="ltr" placeholder="0567163671"></div>
+          </div>
+          <div class="frow fr2">
+            <div class="fld"><label>صورة الغلاف (Banner) — رابط URL</label><input type="url" id="aHr" class="ltr" placeholder="https://..."></div>
+            <div class="fld"><label>صورة الشعار (Logo) — رابط URL</label><input type="url" id="aLg" class="ltr" placeholder="https://..."></div>
+          </div>
+          <button class="btn-pri" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+        </div>
+
+        <!-- PRODUCTS -->
+        <div class="asec">
+          <h3 class="asec-t">🛒 إدارة المنتجات</h3>
+          <p style="font-size:.8rem;color:var(--mut);margin-bottom:12px">
+            لكل منتج: الاسم (عربي + إنجليزي) · السعر · الوحدة · الفئة · صورة
+          </p>
+          <div id="pEditList"></div>
+          <div style="display:flex;gap:9px;margin-top:12px;flex-wrap:wrap">
+            <button class="btn-gld" onclick="addProd()">➕ إضافة منتج</button>
+            <button class="btn-pri" onclick="saveProds()">💾 حفظ المنتجات</button>
+          </div>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="asec">
+          <h3 class="asec-t">🔑 تغيير كلمة المرور</h3>
+          <div class="frow fr2">
+            <div class="fld"><label>كلمة المرور الجديدة (٤ أحرف فأكثر)</label>
+              <input type="password" id="newPw" class="ltr" placeholder="••••••••"></div>
+          </div>
+          <button class="btn-pri" onclick="changePw()">🔒 تغيير</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONSTANTS ──────────────────────────────────────────────────────
+
+const CATS = [
+  {key:'all',      icon:'🏪', ar:'الكل',           en:'All'},
+  {key:'oils',     icon:'🫒', ar:'زيوت وسمن',      en:'Oils & Ghee'},
+  {key:'bread',    icon:'🫓', ar:'خبز ومعجنات',    en:'Bread & Pastry'},
+  {key:'spices',   icon:'🌶', ar:'توابل وبهارات',  en:'Spices'},
+  {key:'dairy',    icon:'🧀', ar:'ألبان وأجبان',   en:'Dairy'},
+  {key:'sweets',   icon:'🍮', ar:'حلويات',         en:'Sweets'},
+  {key:'beverages',icon:'🍵', ar:'مشروبات',        en:'Beverages'},
+  {key:'jams',     icon:'🍓', ar:'مربيات ومخللات', en:'Jams & Pickles'},
+  {key:'other',    icon:'📦', ar:'أخرى',           en:'Other'},
+];
+
+// Each unit: ar = full Arabic display (درهم + unit), enQty = English quantity part only
+const UNITS = [
+  {key:'kg',    ar:'درهم / كيلو',     enQty:'kg'},
+  {key:'500g',  ar:'درهم / 500 غ',   enQty:'500g'},
+  {key:'250g',  ar:'درهم / 250 غ',   enQty:'250g'},
+  {key:'gram',  ar:'درهم / غرام',    enQty:'gram'},
+  {key:'piece', ar:'درهم / قطعة',    enQty:'piece'},
+  {key:'pack',  ar:'درهم / عبوة',    enQty:'pack'},
+  {key:'bag',   ar:'درهم / كيس',     enQty:'bag'},
+  {key:'liter', ar:'درهم / لتر',     enQty:'litre'},
+  {key:'dozen', ar:'درهم / دزينة',   enQty:'dozen'},
+];
+
+const MAPS_URL = 'https://www.google.com/maps/place/%D8%B3%D9%88%D8%A8%D8%B1%D9%85%D8%A7%D8%B1%D9%83%D8%AA+%D8%A7%D9%84%D8%A8%D9%8A%D8%AA+%D8%A7%D9%84%D8%B3%D9%88%D8%B1%D9%8A%E2%80%AD/@24.2255422,55.7695839,20z/data=!4m14!1m7!3m6!1s0x3e8ab145cbd5a049:0x3412343f10210fc4!2s6QG9%2B8V+-+Abu+Dhabi!3b1!8m2!3d24.2258125!4d55.7696875!3m5!1s0x3e8ab753f7440811:0xc167f44a771a37e3!8m2!3d24.2258349!4d55.7696881!16s%2Fg%2F11n00qwpwz?entry=ttu&g_ep=EgoyMDI2MDYyMy4wIKXMDSoASAFQAw%3D%3D';
+
+// ── DEFAULT DATA ────────────────────────────────────────────────────
+
+const DEFAULT = {
+  storeName:'البيت السوري',
+  phone:'0567163671',
+  heroImage:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=85',
+  logoImage:'https://images.unsplash.com/photo-1604742763104-86a359b22e4e?w=200&q=80',
+  adminPassword:'albayt2024',
+  products:[
+    {id:1,  nameAr:'زيت الزيتون السوري البكر', nameEn:'Syrian Extra Virgin Olive Oil', price:'25', unit:'kg',     badge:'طبيعي', category:'oils',      image:'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&q=80'},
+    {id:2,  nameAr:'معجنات وكعك سوري طازج',   nameEn:'Fresh Syrian Pastry & Kaak',    price:'15', unit:'piece',  badge:'طازج',  category:'bread',     image:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&q=80'},
+    {id:3,  nameAr:'توابل وبهارات عربية',      nameEn:'Arabic Spice Mix',              price:'10', unit:'pack',   badge:'مميز',  category:'spices',    image:'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&q=80'},
+    {id:4,  nameAr:'حلاوة طحينية أصيلة',       nameEn:'Authentic Tahini Halawa',       price:'20', unit:'kg',     badge:'جديد',  category:'sweets',    image:'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=500&q=80'},
+    {id:5,  nameAr:'خبز عربي طازج يومياً',    nameEn:'Fresh Arabic Bread Daily',      price:'5',  unit:'piece',  badge:'طازج',  category:'bread',     image:'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500&q=80'},
+    {id:6,  nameAr:'جبنة سورية بيضاء',         nameEn:'Syrian White Cheese',           price:'22', unit:'kg',     badge:'طازج',  category:'dairy',     image:'https://images.unsplash.com/photo-1452195100486-9cc805987862?w=500&q=80'},
+    {id:7,  nameAr:'مربى فاكهة بلدية',         nameEn:'Homemade Fruit Jam',            price:'18', unit:'pack',   badge:'منزلي', category:'jams',      image:'https://images.unsplash.com/photo-1562007908-17c67e878c88?w=500&q=80'},
+    {id:8,  nameAr:'شاي عربي أصيل',           nameEn:'Authentic Arabic Tea',          price:'12', unit:'pack',   badge:'مميز',  category:'beverages', image:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&q=80'},
+  ]
+};
+
+// ── STATE ───────────────────────────────────────────────────────────
+
+let S        = loadState();
+let lang     = localStorage.getItem('albayt_lang') || 'ar';
+let activeCat = 'all';
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem('albayt_v4');
+    if(raw){
+      const p = JSON.parse(raw);
+      if(p.products) p.products = p.products.map(migrateProd);
+      return p;
+    }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT));
+}
+
+function migrateProd(p){
+  return {
+    id:       p.id||Date.now(),
+    nameAr:   p.nameAr||p.name||'منتج',
+    nameEn:   p.nameEn||'',
+    price:    String(p.price||'0').replace(/[^\d.]/g,''),
+    unit:     p.unit||'piece',
+    badge:    p.badge||'',
+    category: p.category||'other',
+    image:    p.image||'',
+  };
+}
+
+function saveState(){
+  try{localStorage.setItem('albayt_v4',JSON.stringify(S));}catch(e){}
+}
+
+// ── LANGUAGE ────────────────────────────────────────────────────────
+
+function setLang(l){
+  lang = l;
+  localStorage.setItem('albayt_lang',l);
+  document.documentElement.lang = l;
+  document.documentElement.dir  = l==='ar'?'rtl':'ltr';
+  document.getElementById('btnAr').classList.toggle('on', l==='ar');
+  document.getElementById('btnEn').classList.toggle('on', l==='en');
+  // Apply data-ar / data-en static text
+  document.querySelectorAll('[data-ar],[data-en]').forEach(el=>{
+    const t = el.getAttribute('data-'+l);
+    if(t!==null) el.textContent = t;
+  });
+  updateDynamic();
+  renderCats();
+  renderProds();
+}
+
+function updateDynamic(){
+  const storeAr = S.storeName;
+  const storeEn = 'Al-Bayt Al-Souri';
+  const nm = lang==='ar' ? storeAr : storeEn;
+  ['hName','hNameHero','fName'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=nm;
+  });
+  document.title = nm + (lang==='ar'?' — سوبرماركت عربي':' — Arabic Supermarket');
+  const ph=document.getElementById('fPhone');
+  if(ph) ph.textContent=S.phone;
+  // WA links
+  const href=waURL();
+  ['waHdr','waFloat','waFtr'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.href=href;
+  });
+  // Images
+  const li=document.getElementById('logoImg');
+  const hi=document.getElementById('heroImg');
+  if(li) li.src=S.logoImage;
+  if(hi) hi.src=S.heroImage;
+}
+
+// ── WA URL ──────────────────────────────────────────────────────────
+
+function waURL(msg){
+  const d=S.phone.replace(/\D/g,'');
+  const intl=d.startsWith('0')?'971'+d.slice(1):d;
+  return msg?`https://wa.me/${intl}?text=${encodeURIComponent(msg)}`:`https://wa.me/${intl}`;
+}
+
+// ── CATEGORIES ──────────────────────────────────────────────────────
+
+function renderCats(){
+  const bar=document.getElementById('catBar');
+  bar.innerHTML=CATS.map(c=>`
+    <button class="cbt ${activeCat===c.key?'on':''}" onclick="filterCat('${c.key}')">
+      ${c.icon} ${c[lang]||c.ar}
+    </button>`).join('');
+}
+
+function filterCat(k){
+  activeCat=k;
+  renderCats();
+  renderProds();
+}
+
+// ── FORMAT PRICE ────────────────────────────────────────────────────
+
+function fmtPrice(p){
+  const u=UNITS.find(x=>x.key===p.unit)||{ar:'درهم / قطعة',enQty:'piece'};
+  return lang==='ar'
+    ? `${p.price} ${u.ar}`
+    : `AED ${p.price} / ${u.enQty}`;
+}
+
+function getCatName(key){
+  const c=CATS.find(x=>x.key===key);
+  return c?(c[lang]||c.ar):'';
+}
+
+// ── PRODUCTS ────────────────────────────────────────────────────────
+
+function renderProds(){
+  const grid=document.getElementById('pgrid');
+  if(!grid) return;
+  const list=activeCat==='all'?S.products:S.products.filter(p=>p.category===activeCat);
+  if(!list.length){
+    const m=lang==='ar'?'لا توجد منتجات في هذه الفئة حالياً':'No products in this category yet';
+    grid.innerHTML=`<div class="no-res">📦 ${m}</div>`;
+    return;
+  }
+  const orderTxt=lang==='ar'?'🛒 اطلب الآن':'🛒 Order Now';
+  grid.innerHTML=list.map(p=>{
+    const name=(lang==='en'&&p.nameEn)?p.nameEn:p.nameAr;
+    const price=fmtPrice(p);
+    const catNm=getCatName(p.category);
+    return `
+    <div class="pcard">
+      <div class="pimgw">
+        <img src="${esc(p.image)}" alt="${esc(name)}"
+             onerror="this.src='https://placehold.co/400x250/2D6A4F/ffffff?text=No+Image'">
+        ${p.badge?`<span class="pbadge">${esc(p.badge)}</span>`:''}
+        <span class="pcat-chip">${esc(catNm)}</span>
+      </div>
+      <div class="pbody">
+        <div class="pname">${esc(name)}</div>
+        <div class="pprice">${esc(price)}</div>
+        <button class="p-ord-btn" onclick="orderProd(${p.id})">${orderTxt}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function orderProd(id){
+  const p=S.products.find(x=>x.id===id);
+  if(!p) return;
+  const name=(lang==='en'&&p.nameEn)?p.nameEn:p.nameAr;
+  const price=fmtPrice(p);
+  const msg=lang==='ar'
+    ?`مرحباً 👋\nأريد الاستفسار عن:\n${p.nameAr}\nالسعر: ${price}`
+    :`Hello 👋\nI'd like to order:\n${name}\nPrice: ${price}`;
+  window.open(waURL(msg),'_blank');
+}
+
+function esc(s){
+  return String(s||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── ADMIN ───────────────────────────────────────────────────────────
+
+function openAdmin(){
+  document.getElementById('aov').style.display='block';
+  document.getElementById('aLogin').style.display='block';
+  document.getElementById('aPanel').style.display='none';
+  document.getElementById('pwInp').value='';
+  document.getElementById('pwErr').style.display='none';
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('pwInp').focus(),120);
+}
+function closeAdmin(){
+  document.getElementById('aov').style.display='none';
+  document.body.style.overflow='';
+}
+function checkPw(){
+  const v=document.getElementById('pwInp').value;
+  if(v===S.adminPassword){
+    document.getElementById('aLogin').style.display='none';
+    document.getElementById('aPanel').style.display='block';
+    document.getElementById('pwErr').style.display='none';
+    fillAdmin();
+  } else {
+    document.getElementById('pwErr').style.display='block';
+    document.getElementById('pwInp').select();
+  }
+}
+function fillAdmin(){
+  document.getElementById('aNm').value=S.storeName;
+  document.getElementById('aPh').value=S.phone;
+  document.getElementById('aHr').value=S.heroImage;
+  document.getElementById('aLg').value=S.logoImage;
+  renderPEdit();
+}
+
+// Build <option> lists
+function unitOpts(sel){
+  return UNITS.map(u=>`<option value="${u.key}" ${u.key===sel?'selected':''}>${u.ar}  |  ${u.enQty}</option>`).join('');
+}
+function catOpts(sel){
+  return CATS.filter(c=>c.key!=='all').map(c=>`<option value="${c.key}" ${c.key===sel?'selected':''}>${c.icon} ${c.ar} / ${c.en}</option>`).join('');
+}
+
+function renderPEdit(){
+  const list=document.getElementById('pEditList');
+  list.innerHTML=S.products.map((p,i)=>`
+    <div class="pecard" id="pe-${i}">
+      <div class="pe-top">
+        <img class="pe-thumb" id="pth-${i}" src="${esc(p.image)}"
+             onerror="this.src='https://placehold.co/58x58/2D6A4F/fff?text=?'" alt="">
+        <div class="pe-fields">
+          <div class="pe-row pe-r2">
+            <div>
+              <div class="pe-label">الاسم بالعربي</div>
+              <input class="pei" id="pna-${i}" value="${esc(p.nameAr)}" placeholder="اسم المنتج">
+            </div>
+            <div>
+              <div class="pe-label">Name in English</div>
+              <input class="pei ltr" id="pne-${i}" value="${esc(p.nameEn)}" placeholder="Product name">
+            </div>
+          </div>
+          <div class="pe-row pe-r3">
+            <div>
+              <div class="pe-label">السعر (درهم)</div>
+              <input class="pei ltr" id="ppr-${i}" value="${esc(p.price)}" placeholder="25">
+            </div>
+            <div>
+              <div class="pe-label">الوحدة / Unit</div>
+              <select class="pes" id="pun-${i}">${unitOpts(p.unit)}</select>
+            </div>
+            <div>
+              <div class="pe-label">الفئة / Category</div>
+              <select class="pes" id="pca-${i}">${catOpts(p.category)}</select>
+            </div>
+          </div>
+          <div class="pe-row pe-r2">
+            <div>
+              <div class="pe-label">بطاقة (طازج، جديد...)</div>
+              <input class="pei" id="pbg-${i}" value="${esc(p.badge)}" placeholder="طازج">
+            </div>
+            <div>
+              <div class="pe-label">رابط الصورة URL</div>
+              <input class="pei ltr" id="pim-${i}" value="${esc(p.image)}"
+                     placeholder="https://..." oninput="upThumb(${i})">
+            </div>
+          </div>
+        </div>
+        <button class="btn-del" onclick="delProd(${i})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function upThumb(i){
+  const src=document.getElementById(`pim-${i}`)?.value;
+  const th=document.getElementById(`pth-${i}`);
+  if(th&&src) th.src=src;
+}
+function addProd(){
+  S.products.push({id:Date.now(),nameAr:'منتج جديد',nameEn:'New Product',
+    price:'0',unit:'piece',badge:'جديد',category:'other',
+    image:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&q=80'});
+  renderPEdit();
+  document.getElementById('pEditList').lastElementChild?.scrollIntoView({behavior:'smooth'});
+}
+function delProd(i){
+  if(!confirm('هل تريد حذف هذا المنتج؟')) return;
+  S.products.splice(i,1);
+  renderPEdit();
+}
+function saveSettings(){
+  S.storeName = document.getElementById('aNm').value.trim()||S.storeName;
+  S.phone     = document.getElementById('aPh').value.trim()||S.phone;
+  S.heroImage = document.getElementById('aHr').value.trim()||S.heroImage;
+  S.logoImage = document.getElementById('aLg').value.trim()||S.logoImage;
+  saveState(); setLang(lang); toast('✅ تم حفظ الإعدادات');
+}
+function saveProds(){
+  const upd=[];
+  S.products.forEach((p,i)=>{
+    if(!document.getElementById(`pna-${i}`)) return;
+    upd.push({
+      id:       p.id,
+      nameAr:   document.getElementById(`pna-${i}`).value.trim()||p.nameAr,
+      nameEn:   document.getElementById(`pne-${i}`).value.trim(),
+      price:    document.getElementById(`ppr-${i}`).value.replace(/[^\d.]/g,'')||p.price,
+      unit:     document.getElementById(`pun-${i}`).value||p.unit,
+      category: document.getElementById(`pca-${i}`).value||p.category,
+      badge:    document.getElementById(`pbg-${i}`).value.trim(),
+      image:    document.getElementById(`pim-${i}`).value.trim()||p.image,
+    });
+  });
+  S.products=upd;
+  saveState(); renderCats(); renderProds(); toast('✅ تم حفظ المنتجات');
+}
+function changePw(){
+  const v=document.getElementById('newPw').value;
+  if(v.length<4){toast('⚠ كلمة المرور أقل من ٤ أحرف');return;}
+  S.adminPassword=v; saveState();
+  document.getElementById('newPw').value='';
+  toast('🔒 تم تغيير كلمة المرور');
+}
+
+// ── TOAST ───────────────────────────────────────────────────────────
+
+let tT;
+function toast(m){
+  const el=document.getElementById('toast');
+  el.textContent=m; el.classList.add('show');
+  clearTimeout(tT); tT=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+// ── CLOSE ON BACKDROP ────────────────────────────────────────────────
+
+document.getElementById('aov').addEventListener('click',e=>{
+  if(e.target.id==='aov') closeAdmin();
+});
+
+// ── INIT ─────────────────────────────────────────────────────────────
+
+setLang(lang);
+</script>
+</body>
+</html>
